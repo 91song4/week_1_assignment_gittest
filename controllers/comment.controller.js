@@ -2,7 +2,7 @@ const { sequelize, Post, Comment } = require('../models');
 
 async function createComments(req, res) {
   try {
-    const postId = parseInt(req.params.postId, 10);
+    const postId = req.params.postId;
     const { id: userId } = res.locals.user;
     const { comment: content } = req.body;
 
@@ -27,7 +27,7 @@ async function createComments(req, res) {
 
 async function getComments(req, res) {
   try {
-    const postId = parseInt(req.params.postId, 10);
+    const postId = +req.params.postId;
     const [comments, metadata] = await sequelize.query(`
     select
       c.id,
@@ -53,7 +53,7 @@ async function getComments(req, res) {
 
 async function updateCommnets(req, res) {
   try {
-    const commentId = parseInt(req.params.commentId, 10);
+    const commentId = +req.params.commentId;
     const { id: userId } = res.locals.user;
     const { comment: content } = req.body;
 
