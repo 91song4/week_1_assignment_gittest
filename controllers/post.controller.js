@@ -157,7 +157,7 @@ const getLikes = async (req, res) => {
     where
         p.userid = ${userId};
   `)
-    
+
     res.status(200).send({ data: post });
   } catch (error) {
     console.error(error);
@@ -166,7 +166,36 @@ const getLikes = async (req, res) => {
 }
 
 const putLike = async (req, res) => {
+  try {
+    const postId = +req.params.postId;
+    const { id: userId } = res.locals.user;
 
+    const [[likePost]] = await sequelize.query(`
+    select
+      p.id,
+      l.userId
+    from
+      Posts as p
+    left join Likes as l on l.postId = p.id
+    where
+      p.id = ${postId};
+    `);
+
+    if (!likePost) {
+      return res.status(404).send({ errorMessage: "게시글이 존재하지 않습니다." });
+    }
+
+    if (likePost.userId === userId) {
+      await Like.destroy({ where: { postId, userId } });
+      return res.status(200).send({ message: "게시글의 좋아요를 취소하였습니다." })
+    }
+
+    await Like.create({ userId, postId });
+    res.status(200).send({ message: "게시글의 좋아요를 등록하였습니다." })
+  } catch (error) {
+    console.error(error);
+    res.status(400).send({ errorMessage: "좋아요 게시글 조회에 실패하였습니다." });
+  }
 }
 
 // 게시글 상세 조회 함수도 export 시켜야함
