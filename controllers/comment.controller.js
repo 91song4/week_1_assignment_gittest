@@ -84,7 +84,24 @@ async function updateCommnets(req, res) {
 }
 
 async function deleteComments(req, res) {
+  try {
+    const commentId = +req.params.commentId;
+    const { id: userId } = res.locals.user;
 
+    try {
+      const destroyComment = await Comment.destroy({ where: { id: commentId, userId } });
+      if (destroyComment < 1) {
+        return res.status(404).send({ errorMessage: "댓글이 존재하지 않습니다." });
+      }
+      res.status(200).send({ message: "댓글을 삭제하였습니다." });
+    } catch (error) {
+      console.error('Error: ', error.message);
+      res.status(400).send({ errorMessage: "댓글 삭제가 정상적으로 처리되지 않았습니다." });
+    }
+  } catch (error) {
+    console.error('Error: ', error.message);
+    res.status(400).send({ errorMessage: "댓글 삭제에 실패하였습니다." });
+  }
 }
 
 module.exports = {
