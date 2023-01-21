@@ -55,7 +55,7 @@
 ## 좋아요
 
 <input type="checkbox" > 좋아요 게시글 조회 - posts/like - User  
-<input type="checkbox" > 게시글 좋아요 누루기 - posts/:postId/like - User
+<input type="checkbox" > 게시글 좋아요 누르기 - posts/:postId/like - User
 
 <br>
 

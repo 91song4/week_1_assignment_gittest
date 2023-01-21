@@ -17,7 +17,7 @@ router.get("/posts/:id", detailPost);
 // 게시글 등록 - User
 router.post("/posts", auth_middleware, createPosts);
 // 게시글 수정 - User
-router.post("/posts", auth_middleware, updatePosts);
+router.put("/posts/:id", auth_middleware, updatePosts);
 // 게시글 삭제 - User
 router.delete("/posts/:id", auth_middleware, deletePosts);
 
