@@ -16,9 +16,9 @@ router.post('/comments/:postId', auth_middleware, createComments);
 router.get('/comments/:postId', getComments);
 
 // 댓글 수정 - comments/:postId - User
-router.put('/comments/:postId', auth_middleware, updateCommnets);
+router.put('/comments/:commentId', auth_middleware, updateCommnets);
 
 // 댓글 삭제 - comments/:postId - User
-router.delete('/comments/:postId', auth_middleware, deleteComments);
+router.delete('/comments/:commentId', auth_middleware, deleteComments);
 
 module.exports = router;
