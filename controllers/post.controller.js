@@ -140,9 +140,9 @@ const deletePosts = async (req, res) => {
 
 const getLikes = async (req, res) => {
   try {
-  
+    const { id: userId } = res.locals.user;
 
-    await sequelize.query(`
+    const [post] = await sequelize.query(`
     select
         p.id,
         p.userId,
@@ -152,14 +152,16 @@ const getLikes = async (req, res) => {
         p.updatedAt
     from
         Posts as p
-        left join Likes as l on p.id = l.postId
-        left join Users as u on p.userId = u.id
+        inner join Likes as l on p.id = l.postId
+        inner join Users as u on p.userId = u.id
     where
         p.userid = ${userId};
   `)
+    
+    res.status(200).send({ data: post });
   } catch (error) {
     console.error(error);
-    res.status(400).send({ errorMessage: error.message });
+    res.status(400).send({ errorMessage: "좋아요 게시글 조회에 실패하였습니다." });
   }
 }
 
