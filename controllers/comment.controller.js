@@ -2,7 +2,7 @@ const { sequelize, Post, Comment } = require('../models');
 
 async function createComments(req, res) {
   try {
-    const postId = req.params.postId;
+    const postId = +req.params.postId;
     const { id: userId } = res.locals.user;
     const { comment: content } = req.body;
 
