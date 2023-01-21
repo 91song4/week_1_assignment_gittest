@@ -49,8 +49,8 @@
 
 <input type="checkbox" > 댓글 생성 - comments/:postId - User<br>
 <input type="checkbox" > 댓글 목록 조회 - comments/:postId - All<br>
-<input type="checkbox" > 댓글 수정 - comments/:postId - User<br>
-<input type="checkbox" > 댓글 삭제 - comments/:postId - User<br>
+<input type="checkbox" > 댓글 수정 - comments/:commentId - User<br>
+<input type="checkbox" > 댓글 삭제 - comments/:commentId - User<br>
 
 ## 좋아요
 
