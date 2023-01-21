@@ -8,6 +8,8 @@ const {
   detailPost,
   updatePosts,
   deletePosts,
+  getLikes,
+  putLike,
 } = require("../controllers/post.controller");
 
 // 게시글 전체 조회 - All
@@ -22,5 +24,8 @@ router.put("/posts/:id", auth_middleware, updatePosts);
 router.delete("/posts/:id", auth_middleware, deletePosts);
 
 // 좋아요 게시글 조회 - 내가쓴 글의 좋아요가 달린 글만 보이게 만들면됩니다.
+router.get('/posts/like', auth_middleware, getLikes)
+// 게시글 좋아요 
+router.put('/posts/:postId/like', auth_middleware, putLike)
 
 module.exports = router;

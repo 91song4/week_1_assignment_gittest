@@ -21,7 +21,7 @@ async function createComments(req, res) {
     res.status(201).send({ message: "댓글을 작성하였습니다." });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ errorMessage: "댓글 작성에 실패하였습니다." });
+    res.status(400).send({ errorMessage: "댓글 작성에 실패하였습니다." });
   }
 }
 

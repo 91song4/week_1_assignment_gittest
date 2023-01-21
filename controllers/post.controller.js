@@ -138,6 +138,35 @@ const deletePosts = async (req, res) => {
   }
 };
 
+const getLikes = async (req, res) => {
+  try {
+  
+
+    await sequelize.query(`
+    select
+        p.id,
+        p.userId,
+        u.nickname,
+        p.title,
+        p.createdAt,
+        p.updatedAt
+    from
+        Posts as p
+        left join Likes as l on p.id = l.postId
+        left join Users as u on p.userId = u.id
+    where
+        p.userid = ${userId};
+  `)
+  } catch (error) {
+    console.error(error);
+    res.status(400).send({ errorMessage: error.message });
+  }
+}
+
+const putLike = async (req, res) => {
+
+}
+
 // 게시글 상세 조회 함수도 export 시켜야함
 module.exports = {
   createPosts,
@@ -145,4 +174,6 @@ module.exports = {
   detailPost,
   updatePosts,
   deletePosts,
+  getLikes,
+  putLike,
 };
